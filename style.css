@@ -114,7 +114,35 @@ header {
 
 }
 
+.city-search{
 
+display:flex;
+
+gap:10px;
+
+margin-bottom:18px;
+
+}
+
+
+.city-search input{
+
+
+flex:1;
+
+padding:14px;
+
+border-radius:8px;
+
+border:1px solid rgba(255,255,255,.7);
+
+background:rgba(255,255,255,.55);
+
+font-family:inherit;
+
+font-size:14px;
+
+}
 header h1 {
 
 

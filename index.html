@@ -55,6 +55,18 @@
 
 </div>
 
+<div class="city-search">
+
+<input 
+id="citySearch"
+placeholder="🔎 Wpisz miasto np. Gdańsk">
+
+
+<button onclick="searchCity()">
+Dodaj
+</button>
+
+</div>
 
 
 <section class="card">
@@ -114,7 +126,17 @@
 
 </section>
 
+<section class="card">
 
+<h2>Najbliższe godziny</h2>
+
+<div class="chart-container">
+
+<canvas id="hourlyChart"></canvas>
+
+</div>
+
+</section>
 
 
 
@@ -123,6 +145,13 @@
 <h2>Poranny raport</h2>
 
 <p id="report"></p>
+
+</section>
+<section class="card">
+
+<h2> Poranny briefing</h2>
+
+<div id="briefing"></div>
 
 </section>
 
