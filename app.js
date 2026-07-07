@@ -2,6 +2,7 @@ let currentCity =
 localStorage.getItem("city") || "essling";
 let temperatureChart;
 let hourlyChart;
+let pressureChart;
 
 let activeAlarm = null;
 let triggeredAlarms = {};
@@ -17,7 +18,7 @@ lon:16.551,
 name:"🇦🇹 Wien Essling",
 
 temperature:"18°C",
-
+pressureForecast:[],
 feels:"16°C",
 
 wind:"12 km/h",
@@ -79,7 +80,7 @@ lon:14.767,
 name:"🇵🇱 Dziwnów",
 
 temperature:"21°C",
-
+pressureForecast:[],
 feels:"20°C",
 
 wind:"18 km/h",
@@ -134,7 +135,71 @@ temps:[
 
 };
 
+function createPressureChart(){
 
+    let city = weather[currentCity];
+
+    let ctx =
+    document
+    .getElementById("pressureChart")
+    .getContext("2d");
+
+    if(pressureChart){
+        pressureChart.destroy();
+    }
+
+    pressureChart = new Chart(ctx,{
+
+        type:"line",
+
+        data:{
+
+            labels:[
+                "Dzisiaj",
+                "Jutro",
+                "Pojutrze",
+                "Następny"
+            ],
+
+            datasets:[{
+
+                data: city.pressureForecast,
+
+                borderWidth:2,
+                tension:0.4,
+                pointRadius:4,
+                fill:false
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+            maintainAspectRatio:false,
+
+            plugins:{
+                legend:{
+                    display:false
+                }
+            },
+
+            scales:{
+                y:{
+                    ticks:{
+                        callback:function(value){
+                            return value+" hPa";
+                        }
+                    }
+                }
+            }
+
+        }
+
+    });
+
+}
 function createHourlyChart(){
 
 let city = weather[currentCity];
@@ -395,6 +460,9 @@ data.current.dew_point_2m
 
     weatherData.forecast.temps =
     data.daily.temperature_2m_max.slice(0,4);
+
+    weatherData.pressureForecast =
+data.daily.pressure_msl_mean.slice(0,4);
     weatherData.uv =
 Math.round(
 data.daily.uv_index_max[0]
@@ -426,11 +494,9 @@ data.hourly.precipitation_probability[currentHour+index]
 
     loadWeather();
 
-    createChart();
-    createMorningBriefing();
-    createHourlyChart();
-    showHourlyForecast();
-
+createChart();
+createHourlyChart();
+createPressureChart();
 createMorningBriefing();
 
 }
