@@ -1,0 +1,610 @@
+/* =====================================
+   DOMOWY DASHBOARD
+   PREMIUM v2
+   Apple / NASA inspired
+===================================== */
+
+
+/* FONT */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
+
+
+
+/* RESET */
+
+* {
+
+    box-sizing:border-box;
+
+}
+
+
+html,
+body {
+
+    margin:0;
+    padding:0;
+
+    width:100%;
+    min-height:100%;
+
+    font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    sans-serif;
+
+
+}
+
+
+
+/* =====================================
+   MARINE LIGHT MODE
+===================================== */
+
+
+body {
+
+
+    background:
+
+    linear-gradient(
+        180deg,
+        #66ccf5 0%,
+        #a4acb000 45%,
+        #edf8fb 100%
+    );
+
+
+    color:#200b4e;
+
+
+    font-weight:300;
+
+
+}
+
+
+
+
+
+/* APP */
+
+
+.app {
+
+
+    width:100%;
+
+    max-width:620px;
+
+    margin:auto;
+
+    padding:18px 14px;
+
+
+}
+
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+
+header {
+
+
+    text-align:center;
+
+    padding:20px 0 25px;
+
+
+}
+
+
+
+header h1 {
+
+
+    margin:0;
+
+
+    font-size:22px;
+
+
+    font-weight:300;
+
+
+    letter-spacing:4px;
+
+
+    text-transform:uppercase;
+
+
+    color:#083344;
+
+
+}
+
+
+
+#clock {
+
+
+    margin-top:10px;
+
+
+    font-size:15px;
+
+
+    font-weight:300;
+
+
+    opacity:.65;
+
+
+}
+
+
+
+/* =====================================
+   CITY SWITCH
+===================================== */
+
+
+.city-buttons {
+
+
+    display:flex;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+
+}
+
+
+
+.city-buttons button {
+
+
+    flex:1;
+
+
+}
+
+
+
+/* =====================================
+   GLASS CARDS
+===================================== */
+
+
+.card {
+
+
+    width:100%;
+
+
+    padding:22px;
+
+
+    margin-bottom:18px;
+
+
+
+    background:
+
+    rgba(255,255,255,0.55);
+
+
+
+    backdrop-filter:
+
+    blur(18px);
+
+
+
+    -webkit-backdrop-filter:
+
+    blur(18px);
+
+
+
+    border-radius:8px;
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.7);
+
+
+
+    box-shadow:
+
+
+    0 20px 40px rgba(0,80,120,.08);
+
+
+
+}
+
+
+
+
+
+.card h2 {
+
+
+    margin:0 0 18px;
+
+
+    font-size:15px;
+
+
+    font-weight:400;
+
+
+    letter-spacing:2px;
+
+
+    text-transform:uppercase;
+
+
+    color:#075985;
+
+
+
+}
+
+
+
+
+
+/* =====================================
+   TEMPERATURE HERO
+===================================== */
+
+
+.temperature {
+
+
+    text-align:center;
+
+
+    font-size:92px;
+
+
+    line-height:1;
+
+
+    font-weight:200;
+
+
+    letter-spacing:-5px;
+
+
+    color:#0369a1;
+
+
+    margin:20px 0;
+
+
+}
+
+
+
+.card p {
+
+
+    font-size:15px;
+
+
+    font-weight:300;
+
+
+    letter-spacing:.3px;
+
+
+    margin:12px 0;
+
+
+}
+
+
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+
+button {
+
+
+    border:none;
+
+
+    padding:14px 18px;
+
+
+    border-radius:8px;
+
+
+    font-family:inherit;
+
+
+    font-size:14px;
+
+
+    font-weight:400;
+
+
+    letter-spacing:.5px;
+
+
+
+    background:
+
+    rgba(255,255,255,.65);
+
+
+
+    backdrop-filter:
+
+    blur(10px);
+
+
+
+    color:#075985;
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.8);
+
+
+
+    box-shadow:
+
+    0 10px 25px rgba(0,80,120,.08);
+
+
+
+    transition:.25s;
+
+
+}
+
+
+
+button:hover {
+
+
+    transform:translateY(-2px);
+
+
+}
+
+
+
+/* =====================================
+   CHART AREA
+===================================== */
+
+
+.chart-container {
+
+    width:100%;
+
+    height:230px;
+
+    padding:10px;
+
+}
+
+
+
+
+
+/* =====================================
+   THEME BUTTONS
+===================================== */
+
+
+.theme-buttons {
+
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+
+
+/* =====================================
+   NIGHT SPACE MODE
+===================================== */
+
+
+body.night {
+
+
+    background:
+
+
+    radial-gradient(
+    circle at top,
+    #13233a,
+    #050b16 70%
+    );
+
+
+
+    color:white;
+
+
+}
+
+
+
+
+body.night .card {
+
+
+    background:
+
+
+    rgba(20,35,55,.65);
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.12);
+
+
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,.5);
+
+
+}
+
+
+
+
+body.night header h1 {
+
+
+    color:#e0f2fe;
+
+
+}
+
+
+
+body.night #clock {
+
+
+    color:#cbd5e1;
+
+
+}
+
+
+
+body.night .card h2 {
+
+
+    color:#7dd3fc;
+
+
+}
+
+
+
+body.night .temperature {
+
+
+    color:#38bdf8;
+
+
+}
+
+
+
+body.night button {
+
+
+    background:
+
+    rgba(255,255,255,.08);
+
+
+
+    color:white;
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.15);
+
+
+}
+
+
+
+body.night #chart {
+
+
+    background:
+
+    rgba(255,255,255,.05);
+
+
+}
+
+
+
+/* =====================================
+   MOBILE OPTIMIZATION
+===================================== */
+
+
+@media(max-width:480px){
+
+
+    .app {
+
+        padding:12px 10px;
+
+    }
+
+
+
+    header h1 {
+
+
+        font-size:18px;
+
+
+        letter-spacing:3px;
+
+
+    }
+
+
+
+    .temperature {
+
+
+        font-size:82px;
+
+
+    }
+
+
+
+    .card {
+
+
+        padding:18px;
+
+
+        border-radius:24px;
+
+
+    }
+
+
+}

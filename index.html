@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Domowy Dashboard</title>
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <h1>Domowy Dashboard</h1>
+    <div id="clock"></div>
+    <div class="theme-buttons">
+
+<button onclick="setTheme('marine')">
+🌊 Marine
+</button>
+
+<button onclick="setTheme('night')">
+🌙 Night
+</button>
+
+</div>
+</header>
+
+
+<div class="city-buttons">
+
+<button onclick="changeCity('essling')">
+🇦🇹 Essling
+</button>
+
+<button onclick="changeCity('dziwnow')">
+🇵🇱 Dziwnów
+</button>
+
+</div>
+
+
+
+<section class="card">
+
+<h2 id="cityName"></h2>
+
+<div class="temperature">
+<span id="temperature"></span>
+</div>
+
+<p>Odczuwalna:
+<span id="feels"></span>
+</p>
+
+<p>Wiatr:
+<span id="wind"></span>
+</p>
+
+<p>Deszcz:
+<span id="rain"></span>
+</p>
+
+<p>Ciśnienie:
+<span id="pressure"></span>
+</p>
+
+<p>Wilgotność:
+<span id="humidity"></span>
+</p>
+
+<p>☀️ Wschód:
+<span id="sunrise"></span>
+</p>
+
+<p>🌅 Zachód:
+<span id="sunset"></span>
+</p>
+
+
+</section>
+
+
+
+
+<section class="card">
+
+<h2>📈 Prognoza 4 dni</h2>
+
+<div class="chart-container">
+    <canvas id="temperatureChart"></canvas>
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="card">
+
+<h2>Poranny raport</h2>
+
+<p id="report"></p>
+
+</section>
+
+
+
+
+
+<section class="card">
+
+<h2>📅 Mój dzień</h2>
+
+<div id="schedule"></div>
+
+
+<button onclick="addEvent()">
+➕ Dodaj wydarzenie
+</button>
+
+</section>
+
+
+
+
+
+<section class="card">
+
+<h2>Alarmy</h2>
+
+<p>
+07:00 
+pobudka.mp3
+</p>
+
+
+<p>
+Wydarzenie
+wydarzenie.mp3
+</p>
+
+
+<p>
+Temperatura >25°C
+goracy_dzien.mp3
+</p>
+
+
+</section>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
