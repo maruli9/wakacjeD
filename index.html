@@ -7,8 +7,11 @@
 <title>Domowy Dashboard</title>
 
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#0369a1">
 
+<link rel="apple-touch-icon" href="icon-512.png">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,7 +20,7 @@
 
 <header>
     <h1>Domowy Dashboard</h1>
-    <div id="clock"></div>
+    <div id="clock">
     <div class="theme-buttons">
 
 <button onclick="setTheme('marine')">
@@ -27,7 +30,7 @@
 <button onclick="setTheme('night')">
 🌙 Night
 </button>
-
+</div>
 </div>
 </header>
 
@@ -56,6 +59,10 @@
 
 <p>Odczuwalna:
 <span id="feels"></span>
+</p>
+<p id="seaRow" style="display:none;">
+    🌊 Bałtyk:
+    <span id="seaTemp" class="sea-temperature"></span>
 </p>
 
 <p>Wiatr:
@@ -134,18 +141,11 @@
 
 <section class="card">
 
-<h2>Alarmy</h2>
+<h2>🔔 Alarmy</h2>
 
-<p>
-07:00 
-pobudka.mp3
-</p>
+<div id="alarms"></div>
 
-
-<p>
-Wydarzenie
-wydarzenie.mp3
-</p>
+</section>
 
 
 <p>

@@ -134,22 +134,38 @@ header h1 {
 
 #clock {
 
-
     margin-top:10px;
 
+    font-family:
+    'Roboto Mono',
+    monospace;
+
+    font-variant-numeric:
+    tabular-nums;
 
     font-size:15px;
 
+    font-weight:400;
 
-    font-weight:300;
-
+    letter-spacing:1px;
 
     opacity:.65;
 
-
 }
 
+.top-bar {
 
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:15px;
+
+}
 
 /* =====================================
    CITY SWITCH
@@ -423,7 +439,7 @@ button:hover {
 
     display:flex;
 
-    gap:12px;
+    gap: 10px;
 
 }
 
@@ -606,5 +622,12 @@ body.night #chart {
 
     }
 
+
+}
+.sea-temperature{
+
+    color:#0ea5e9;
+
+    font-weight:500;
 
 }

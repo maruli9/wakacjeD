@@ -2,6 +2,9 @@ let currentCity =
 localStorage.getItem("city") || "essling";
 let temperatureChart;
 
+let activeAlarm = null;
+let triggeredAlarms = {};
+
 
 
 const weather = {
@@ -27,10 +30,11 @@ sunrise:"05:18",
 
 sunset:"20:42",
 
+
 report:
 "Dzisiaj przyjemny dzień. Możliwy lekki deszcz po południu.",
 
-
+seaTemperature:null,
 forecast: {
 
 days:[
@@ -74,10 +78,11 @@ sunrise:"04:51",
 
 sunset:"21:05",
 
+
 report:
 "Dobry dzień na spacer nad morzem.",
 
-
+seaTemperature:"18°C",
 forecast:{
 
 days:[
@@ -119,6 +124,20 @@ city.temperature;
 
 document.getElementById("feels").innerHTML =
 city.feels;
+const seaRow = document.getElementById("seaRow");
+
+if(city.seaTemperature){
+
+    seaRow.style.display="block";
+
+    document.getElementById("seaTemp").innerHTML =
+    city.seaTemperature;
+
+}else{
+
+    seaRow.style.display="none";
+
+}
 
 
 document.getElementById("wind").innerHTML =
@@ -151,7 +170,126 @@ city.report;
 
 }
 
+async function getWeather(city){
 
+    let coords = {
+
+        essling:{
+            lat:48.236,
+            lon:16.551
+        },
+
+        dziwnow:{
+            lat:54.028,
+            lon:14.767
+        }
+
+    };
+
+
+    let c = coords[city];
+
+
+    let url =
+    `https://api.open-meteo.com/v1/forecast?
+latitude=${c.lat}&longitude=${c.lon}
+&current=temperature_2m,relative_humidity_2m,apparent_temperature,pressure_msl,wind_speed_10m,precipitation
+&daily=sunrise,sunset,temperature_2m_max
+&timezone=Europe%2FBerlin`;
+
+
+    url=url.replace(/\s/g,"");
+
+
+    let response = await fetch(url);
+
+    let data = await response.json();
+    
+
+
+
+    let weatherData = weather[city];
+
+
+    weatherData.temperature =
+    Math.round(data.current.temperature_2m)+"°C";
+
+
+    weatherData.feels =
+    Math.round(data.current.apparent_temperature)+"°C";
+
+
+    weatherData.wind =
+    Math.round(data.current.wind_speed_10m)+" km/h";
+
+
+    weatherData.rain =
+Math.round(data.current.precipitation)+" mm";
+
+
+    weatherData.pressure =
+    Math.round(data.current.pressure_msl)+" hPa";
+
+
+    weatherData.humidity =
+    data.current.relative_humidity_2m+"%";
+
+
+    weatherData.sunrise =
+    data.daily.sunrise[0].substring(11,16);
+
+
+    weatherData.sunset =
+    data.daily.sunset[0].substring(11,16);
+
+
+
+    weatherData.forecast.temps =
+    data.daily.temperature_2m_max.slice(0,4);
+
+
+
+    loadWeather();
+
+    createChart();
+
+}
+async function getSeaTemperature(){
+
+    if(currentCity !== "dziwnow"){
+        weather.dziwnow.seaTemperature = null;
+        return;
+    }
+
+
+    try{
+
+        let response = await fetch(
+        "https://marine-api.open-meteo.com/v1/marine?latitude=54.028&longitude=14.767&hourly=sea_surface_temperature&timezone=Europe%2FBerlin"
+        );
+
+
+        let data = await response.json();
+
+
+        let temp =
+        data.hourly.sea_surface_temperature[0];
+
+
+        weather.dziwnow.seaTemperature =
+        Math.round(temp)+"°C";
+
+
+        loadWeather();
+
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
 function createChart(){
 
 
@@ -309,9 +447,8 @@ localStorage.setItem(
 city
 );
 
-loadWeather();
-
-createChart();
+getWeather(city);
+getSeaTemperature();
 
 }
 
@@ -342,38 +479,249 @@ loadWeather();
 
 function addEvent(){
 
-
 let text =
-prompt("Wpisz wydarzenie");
+prompt("Nazwa wydarzenia");
 
 
-if(text){
+let time =
+prompt("Godzina np. 15:30");
 
-localStorage.setItem(
-"event",
-text
+
+let sound =
+prompt(
+"MP3",
+"sounds/wydarzenie.mp3"
 );
 
 
-document.getElementById("schedule").innerHTML =
-text;
+if(!text || !time) return;
+
+
+let events =
+JSON.parse(localStorage.getItem("events")) || [];
+
+
+events.push({
+
+id:Date.now(),
+
+text:text,
+
+time:time,
+
+sound:sound,
+
+done:false
+
+});
+
+
+localStorage.setItem(
+"events",
+JSON.stringify(events)
+);
+
+
+showEvents();
 
 
 }
 
+function showEvents(){
+
+let box =
+document.getElementById("alarms");
+
+
+let events =
+JSON.parse(localStorage.getItem("events")) || [];
+
+
+box.innerHTML="";
+
+
+events.forEach(event=>{
+
+
+box.innerHTML += `
+
+<p>
+
+⏰ ${event.time}
+
+<br>
+
+${event.text}
+
+
+<button onclick="deleteEvent(${event.id})">
+❌
+</button>
+
+
+</p>
+
+
+`;
+
+
+});
+
+
+}
+function deleteEvent(id){
+
+
+let events =
+JSON.parse(localStorage.getItem("events")) || [];
+
+
+events =
+events.filter(
+event=>event.id!==id
+);
+
+
+localStorage.setItem(
+"events",
+JSON.stringify(events)
+);
+
+
+showEvents();
+
+
+}
+
+let playingAudio=null;
+
+function stopEventSound(){
+
+    if(playingAudio){
+
+        playingAudio.pause();
+
+        playingAudio.currentTime=0;
+
+        playingAudio=null;
+
+    }
+
+
+    let events =
+    JSON.parse(localStorage.getItem("events")) || [];
+
+
+    events =
+    events.filter(
+        event => !event.done
+    );
+
+
+    localStorage.setItem(
+        "events",
+        JSON.stringify(events)
+    );
+
+
+    showEvents();
+
+
+    let button =
+    document.getElementById("stopEvent");
+
+
+    if(button){
+
+        button.remove();
+
+    }
+
+}
+function showStopEventButton(){
+
+let box =
+document.getElementById("alarms");
+
+
+if(!document.getElementById("stopEvent")){
+
+
+box.innerHTML += `
+
+<button id="stopEvent"
+onclick="stopEventSound()">
+
+🔕 WYŁĄCZ DŹWIĘK
+
+</button>
+
+`;
+
 }
 
 
-let saved =
-localStorage.getItem("event");
+}
+
+function checkEvents(){
+
+    let events =
+    JSON.parse(localStorage.getItem("events")) || [];
 
 
-if(saved){
+    let now =
+    new Date()
+    .toTimeString()
+    .substring(0,5);
 
-document.getElementById("schedule").innerHTML =
-saved;
+
+
+    events.forEach(event=>{
+
+
+        if(
+    event.time===now &&
+    !event.done
+){
+
+    playingAudio =
+    new Audio(event.sound);
+
+
+    playingAudio.loop=true;
+
+
+    playingAudio.play();
+
+
+    event.done=true;
+
+
+    localStorage.setItem(
+        "events",
+        JSON.stringify(events)
+    );
+
+
+    showStopEventButton();
 
 }
+
+
+    });
+
+}
+
+
+// START SYSTEMU WYDARZEŃ
+
+setInterval(
+checkEvents,
+10000
+);
+
+
+showEvents();
 
 function setTheme(theme){
 
@@ -413,4 +761,23 @@ document.body.classList.add(
 );
 
 }
+
+
+
+
+
+loadWeather();
 createChart();
+getWeather(currentCity);
+getSeaTemperature();
+
+showEvents();
+
+setInterval(
+checkEvents,
+10000
+);
+
+
+
+

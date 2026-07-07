@@ -1,11 +1,21 @@
 {
-  "name": "wakacjeD",
-  "short_name": "wakacje",
+  "name": "Domowy Dashboard",
+  "short_name": "Dashboard",
+  "description": "Osobisty dashboard pogody, alarmów i wydarzeń",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050b16",
+  "theme_color": "#0369a1",
+
   "icons": [
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+
+  "lang": "pl"
 }
