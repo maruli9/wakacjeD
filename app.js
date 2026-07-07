@@ -1323,12 +1323,12 @@ ${city.dewPoint}
 
 <br>
 
-🌧 Opady dzisiaj:
+Opady dzisiaj:
 ${city.rainSum}
 
 <br>
 
-📈 Ciśnienie:
+Ciśnienie:
 ${city.pressure}
 
 <br>
@@ -1347,7 +1347,7 @@ if(city.waves){
 text += `
 <p>
 
-🌊 Fale:
+Fale:
 ${city.waves}
 
 <br>
@@ -1357,7 +1357,7 @@ ${city.wavePeriod}
 
 <br>
 
-🧭 Kierunek:
+Kierunek:
 ${city.waveDirection}
 
 </p>
